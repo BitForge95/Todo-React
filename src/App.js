@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Todo from './Components/Todo';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  
+  const [inputValue, setInputValue] = useState("")
+  const [inputArray, setInputArray] = useState([])
+
+    const handleSubmit = () => {
+        if(inputValue.trim() === ""){
+            alert("Please enter a Todo")
+        } else {
+          setInputArray([...inputArray, inputValue.trim()]);
+          setInputValue('');
+        }
+    }
+
+    
+    return (
+        <div className="App">
+            <h1 className="H1">Plan your Day with out Todoer</h1>
+            <div>
+              <div className='Input-Todo'>
+                <input className="input" type='text' placeholder='eg: Go to Gym' value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+                <button type='button' onClick={handleSubmit}>Let's Go</button>
+              </div>
+              <Todo array={inputArray} />
+            </div>
+        </div>
+    )
 }
 
 export default App;
